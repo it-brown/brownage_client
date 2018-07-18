@@ -29,7 +29,3 @@ export interface TaskItem  {
      */
     progress: number;
 }
-
-export interface TaskItems {
-    tasks: TaskItem[];
-}

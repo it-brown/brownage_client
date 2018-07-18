@@ -11,6 +11,7 @@
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator';
 import Buefy from 'buefy';
+import Vuex from 'vuex';
 import RootVue from '@/components/base/RootVue';
 
 import CommonNavbar from '@/components/common/CommonNavbar.vue';
@@ -18,8 +19,10 @@ import CommonHero from '@/components/common/CommonHero.vue';
 import TaskInput from '@/components/common/TaskInput.vue';
 import Gantt from '@/components/chart/Gantt.vue';
 import { TaskItem } from '@/scripts/model/chart/TaskItem';
+import IndexStore from '@/scripts/store/IndexStore';
 
 Vue.use(Buefy);
+Vue.use(Vuex);
 
 /**
  * Vue Component
@@ -27,7 +30,8 @@ Vue.use(Buefy);
 @Component({
     components: {
         CommonNavbar, CommonHero, TaskInput, Gantt
-    }
+    },
+    store: new IndexStore()
 })
 export default class Index extends RootVue {
     public title = 'Brownage';
