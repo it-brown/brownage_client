@@ -3,15 +3,18 @@
     .reactive-title {{ reactiveTitle() }}
     common-navbar.is-light(:brand='title')
 
-    .columns.is-gapless
+    .columns.is-gapless.is-multiline
         .column.is-4.border-surround: task-input
         .column.is-8.border-surround: gantt(:tasks='tasks')
+        .column.is-full: router-link(to='/project/1') Go to project 1
+        .column.is-full: router-view
 </template>
 
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator';
 import Buefy from 'buefy';
 import Vuex from 'vuex';
+import VueRouter from 'vue-router';
 import RootVue from '@/components/base/RootVue';
 
 import CommonNavbar from '@/components/common/CommonNavbar.vue';
@@ -19,10 +22,12 @@ import CommonHero from '@/components/common/CommonHero.vue';
 import TaskInput from '@/components/common/TaskInput.vue';
 import Gantt from '@/components/chart/Gantt.vue';
 import { TaskItem } from '@/scripts/model/chart/TaskItem';
-import IndexStore from '@/scripts/store/IndexStore';
+import IndexStore from '@/scripts/model/store/IndexStore';
+import IndexRouter from '@/scripts/model/router/IndexRouter';
 
 Vue.use(Buefy);
 Vue.use(Vuex);
+Vue.use(VueRouter);
 
 /**
  * Vue Component
@@ -31,7 +36,8 @@ Vue.use(Vuex);
     components: {
         CommonNavbar, CommonHero, TaskInput, Gantt
     },
-    store: new IndexStore()
+    store: new IndexStore(),
+    router: new IndexRouter()
 })
 export default class Index extends RootVue {
     public title = 'Brownage';
