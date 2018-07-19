@@ -3,11 +3,7 @@
     .reactive-title {{ reactiveTitle() }}
     common-navbar.is-light(:brand='title')
 
-    .columns.is-gapless.is-multiline
-        .column.is-4.border-surround: task-input
-        .column.is-8.border-surround: gantt(:tasks='tasks')
-        .column.is-full: router-link(to='/project/1') Go to project 1
-        .column.is-full: router-view
+    router-view
 </template>
 
 <script lang='ts'>
@@ -19,9 +15,10 @@ import RootVue from '@/components/base/RootVue';
 
 import CommonNavbar from '@/components/common/CommonNavbar.vue';
 import CommonHero from '@/components/common/CommonHero.vue';
-import TaskInput from '@/components/common/TaskInput.vue';
+import Home from '@/components/home/Home.vue';
 import Gantt from '@/components/chart/Gantt.vue';
 import { TaskItem } from '@/scripts/model/chart/TaskItem';
+import { ProjectSchedule } from '@/scripts/model/chart/ProjectSchedule';
 import IndexStore from '@/scripts/model/store/IndexStore';
 import IndexRouter from '@/scripts/model/router/IndexRouter';
 
@@ -34,7 +31,7 @@ Vue.use(VueRouter);
  */
 @Component({
     components: {
-        CommonNavbar, CommonHero, TaskInput, Gantt
+        CommonNavbar, CommonHero, Home, Gantt
     },
     store: new IndexStore(),
     router: new IndexRouter()
@@ -43,10 +40,9 @@ export default class Index extends RootVue {
     public title = 'Brownage';
     public subtitle = 'Schedule';
 
-    protected tasks: TaskItem[] = [
-        { id: 1, text: 'go for ramen', start_date: '2018/7/12', duration: 1, progress: 1 },
-        { id: 2, text: 'hackathon', start_date: '2018/7/13', duration: 3, progress: 0 }
-    ]
+    protected beforeCreate(): void {
+        this.$store.dispatch('initializeStore');
+    }
 }
 </script>
 
@@ -54,11 +50,4 @@ export default class Index extends RootVue {
 @import 'entry/all'
 
 .vue-index
-    section.main
-        max-width: 800px
-        margin-left: auto
-        margin-right: auto
-
-    .border-surround
-        border: solid 1px #D3D3D3
 </style>
