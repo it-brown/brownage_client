@@ -10,10 +10,17 @@
 .cell-height
     height: 30px
 
-.border-grid
+.columns
+    & > .column.border-grid
+        border: solid 1px #D3D3D3
+        border-top: none
+        border-left: none
+
+        &:last-of-type
+            border-right: none
+
+.border-surround
     border: solid 1px #D3D3D3
-    border-top: none
-    border-left: none
 
 .columns:last-child
     & > .border-grid
@@ -27,6 +34,3 @@
     padding-bottom: 0.3em
     padding-left: 0.3em
     padding-right: 0.3em
-
-.control.has-icon .icon
-    color: $primary
