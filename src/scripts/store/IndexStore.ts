@@ -1,5 +1,4 @@
 import { Store } from 'vuex';
-import JSONUtil from '@/scripts/util/JSONUtil';
 import { ProjectSchedule } from '@/scripts/model/chart/ProjectSchedule';
 
 export interface IIndexStore {

@@ -15,5 +15,18 @@
     border-top: none
     border-left: none
 
+.columns:last-child
+    & > .border-grid
+        border-bottom: none
+
 .columns.is-gapless:not(:last-child)
     margin-bottom: 0
+
+.padding-light
+    padding-top: 0.3em
+    padding-bottom: 0.3em
+    padding-left: 0.3em
+    padding-right: 0.3em
+
+.control.has-icon .icon
+    color: $primary

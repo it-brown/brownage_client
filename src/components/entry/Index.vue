@@ -55,5 +55,4 @@ export default class Index extends RootVue {
 
     .border-surround
         border: solid 1px #D3D3D3
-        border-bottom: none
 </style>
