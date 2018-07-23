@@ -32,7 +32,7 @@ export default class Home extends Vue {
         await this.$store.dispatch('changeProjectId', projectId);
         localStorage.setItem('projectSchedule', JSON.stringify(this.projectSchedule));
         localStorage.setItem('onEditProjectId', projectId.toString());
-        this.$router.push(`/project/${this.newProject}`);
+        this.$router.push({ name: 'project', params: { id: projectId.toString() } });
     }
 
     protected beforeMount(): void {
