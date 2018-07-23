@@ -74,6 +74,7 @@ export default class TaskEditModal extends Vue {
             } as TaskItem;
 
             this.project.tasks.push(newTask);
+            this.updateProjectListState();
             this.closeModal();
         }
 
@@ -84,8 +85,25 @@ export default class TaskEditModal extends Vue {
                 matchTask.start_date = this.day.toLocaleDateString();
                 matchTask.duration = this.duration;
             }
+            this.updateProjectListState()
             this.closeModal();
         }
+    }
+
+    protected updateProjectListState(): void {
+        const projectList = this.$store.getters.projectList as ProjectSchedule[];
+            const updatedProjectList = projectList.map((project) => {
+                if (this.project == null) {
+                    return;
+                }
+                if (project.id == this.$store.getters.getOnEditProjectId) {
+                    project.tasks = this.project.tasks;
+                    return project;
+                }
+                return project;
+            });
+            this.$store.dispatch('changeProjectList', updatedProjectList);
+            localStorage.setItem('projectSchedule', JSON.stringify(updatedProjectList));
     }
 
     protected closeModal(): void {
