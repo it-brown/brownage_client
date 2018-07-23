@@ -1,10 +1,14 @@
 <template lang='pug'>
 .vue-home
     section.main
-        label Add Project
+        label.label Add Project
         b-field
             b-input(type='text' v-model='newProject' expanded)
-            p.control: button.button.is-primary(@click='addProject') Add!
+            span.control: button.button.is-primary(@click='addProject') Add!
+        label.label Project List
+            p(v-for='project in projectSchedule' :key='project.id' )
+                router-link(:to='/project/ + project.id') {{ project.name }}
+
 </template>
 
 <script lang='ts'>
