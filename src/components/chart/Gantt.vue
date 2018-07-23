@@ -13,7 +13,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { TaskItem } from '@/scripts/model/chart/TaskItem';
 
-import TaskInput from '@/components/common/TaskInput.vue';
+import TaskInput from '@/components/chart/TaskInput.vue';
 import { ProjectSchedule } from '@/scripts/model/chart/ProjectSchedule';
 
 /**
@@ -42,7 +42,14 @@ export default class Gantt extends Vue {
     }
 
     protected beforeMount(): void {
-        this.project = this.$store.getters.getProjectById;
+        const id = this.$route.params.id;
+
+        if (this.$store.getters.getProjectById) {
+            this.$store.dispatch('changeProjectId', id);
+            this.project = this.$store.getters.getProjectById;
+        } else {
+            this.project = null;
+        }
     }
 }
 </script>
