@@ -1,13 +1,17 @@
 import { Store } from 'vuex';
 import { ProjectSchedule } from '@/scripts/model/chart/ProjectSchedule';
 import JSONUtil from '@/scripts/util/JSONUtil';
+import Vue from 'vue';
+
+import Vuex from 'vuex';
+Vue.use(Vuex);
 
 export interface IIndexStore {
     onEditProjectId: number | null;
     projectSchedule: ProjectSchedule[];
 }
 
-export default class IndexStore extends Store<IIndexStore> {
+class IndexStore extends Store<IIndexStore> {
     public constructor() {
         super({
             state: {
@@ -43,8 +47,13 @@ export default class IndexStore extends Store<IIndexStore> {
                 },
                 getProjectById: state => {
                     return state.projectSchedule.find(state => state.id == this.state.onEditProjectId);
+                },
+                getOnEditProjectId: state => {
+                    return state.onEditProjectId;
                 }
             }
         })
     }
 }
+const store = new IndexStore();
+export default store;

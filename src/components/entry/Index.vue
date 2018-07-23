@@ -9,21 +9,17 @@
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator';
 import Buefy from 'buefy';
-import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import RootVue from '@/components/base/RootVue';
 
 import CommonNavbar from '@/components/common/CommonNavbar.vue';
-import CommonHero from '@/components/common/CommonHero.vue';
-import Home from '@/components/home/Home.vue';
-import Gantt from '@/components/chart/Gantt.vue';
 import { TaskItem } from '@/scripts/model/chart/TaskItem';
 import { ProjectSchedule } from '@/scripts/model/chart/ProjectSchedule';
-import IndexStore from '@/scripts/model/store/IndexStore';
-import IndexRouter from '@/scripts/model/router/IndexRouter';
+import store from '@/scripts/model/store/IndexStore';
+import router from '@/scripts/model/router/IndexRouter';
+import UrlUtil from '@/scripts/util/UrlUtil';
 
 Vue.use(Buefy);
-Vue.use(Vuex);
 Vue.use(VueRouter);
 
 /**
@@ -31,10 +27,10 @@ Vue.use(VueRouter);
  */
 @Component({
     components: {
-        CommonNavbar, CommonHero, Home, Gantt
+        CommonNavbar
     },
-    store: new IndexStore(),
-    router: new IndexRouter()
+    store: store,
+    router: router
 })
 export default class Index extends RootVue {
     public title = 'Brownage';
