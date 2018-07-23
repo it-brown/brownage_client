@@ -11,7 +11,7 @@ function build() {
 
 function dev() {
     export NODE_ENV='development'
-    $(npm bin)/webpack-dev-server --inline --hot
+    $(npm bin)/webpack-dev-server --inline --hot --history-api-fallback
 }
 
 ###
