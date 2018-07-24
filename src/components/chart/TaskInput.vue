@@ -1,6 +1,6 @@
 <template lang='pug'>
 .vue-task-input
-    task-edit-modal(:isActive.sync='isComponentModalActive' :mode='taskModalMode' :taskId='taskId')
+    task-edit-modal(:isActive.sync='isComponentModalActive' :mode='taskModalMode' :taskData='taskData' )
     .task-header.columns.is-gapless
         .column.auto.add-task(@click='addTask'): b-icon(icon='plus')
         .column.cell-height.border-grid(v-for='cell in inputCells' :key='cell.id' :class='cell.cellStyle'): span {{ cell.title }}
@@ -8,7 +8,7 @@
     .task-row.columns.is-gapless(v-for='task in tasks' :key='task.id')
         //- TODO: add task nesting action. link tasks.
         //-.column.auto.add-task(@click='addTask'): b-icon(icon='plus')
-        .column.cell-height.is-clipped(v-for='cell in inputCells' :key='cell.id' :class='cell.cellStyle' @dblclick='updateTask(task.id)'): span.padding-light {{ task[cell.key] }}
+        .column.cell-height.is-clipped(v-for='cell in inputCells' :key='cell.id' :class='cell.cellStyle' @dblclick='updateTask(task)'): span.padding-light {{ task[cell.key] }}
 </template>
 
 <script lang='ts'>
@@ -29,8 +29,9 @@ export default class TaskInput extends Vue {
     @Prop({ type: Array })
     protected tasks?: TaskItem[];
 
-    protected taskModalMode: 'create' | 'update' = 'create';
-    protected taskId: number | null = null;
+    protected taskModalMode: 'Create' | 'Update' = 'Create';
+    protected taskData: TaskItem | null = null;
+
     protected isComponentModalActive = false;
 
     protected inputCells = [
@@ -41,13 +42,19 @@ export default class TaskInput extends Vue {
 
     protected addTask(): void {
         this.isComponentModalActive = true;
-        this.taskModalMode = 'create';
+        this.taskModalMode = 'Create';
     }
 
-    protected updateTask(taskId: number): void {
+    protected updateTask(task: TaskItem): void {
         this.isComponentModalActive = true;
-        this.taskModalMode = 'update';
-        this.taskId = taskId;
+        this.taskModalMode = 'Update';
+        this.taskData = {
+            id: task.id,
+            text:task.text,
+            start_date: task.start_date,
+            duration: task.duration,
+            progress: task.progress
+        }
     }
 }
 </script>
